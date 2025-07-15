@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Toko Elektronik Cepat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    #output, #slideshow img {
+      max-width: 100%;
+    }
+    .product-item {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="container py-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold">Toko Elektronik Cepat</h1>
+    <div id="current-time" class="text-end fs-5 text-primary"></div>
+  </div>
+
+  <!-- Grid Layout -->
+  <div class="row">
+    <!-- Main Display -->
+    <div class="col-md-8">
+      <div id="slideshow" class="mb-3 text-center">
+        <img id="product-image" src="" alt="Gambar Produk" class="img-fluid rounded shadow" />
+        <div class="mt-2">
+          <button onclick="previousImage()" class="btn btn-secondary btn-sm">Previous</button>
+          <button onclick="nextImage()" class="btn btn-secondary btn-sm">Next</button>
+        </div>
+      </div>
+      <h3 id="product-name" class="fw-semibold"></h3>
+      <p id="product-price" class="text-muted fs-5"></p>
+    </div>
+
+    <!-- Product List -->
+    <div class="col-md-4">
+      <h5 class="fw-bold">Daftar Produk</h5>
+      <ul id="product-list" class="list-group"></ul>
+    </div>
+  </div>
+
+  <!-- Form Pemesanan -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h5 class="fw-bold">Form Pemesanan</h5>
+      <div class="mb-2">
+        <label>Nama Pemesan:</label>
+        <input type="text" id="buyer-name" class="form-control" />
+      </div>
+      <div class="mb-2">
+        <label>Jumlah Pesan:</label>
+        <input type="number" id="quantity" class="form-control" />
+      </div>
+      <div class="mb-2">
+        <label>Kode Promo:</label>
+        <input type="text" id="promo-code" class="form-control" />
+      </div>
+      <button class="btn btn-success" onclick="submitOrder()">Pesan Sekarang</button>
+    </div>
+
+    <!-- Output Struk -->
+    <div class="col-md-6">
+      <h5 class="fw-bold">Ringkasan Pesanan</h5>
+      <div id="output" class="border rounded p-3 bg-light"></div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      {
+        name: "Laptop Gaming XZ",
+        price: 15000000,
+        images: [
+          "https://i.pinimg.com/originals/13/e6/3e/13e63e3d81bb4dfa1fc1798a1b792739.jpg",
+          "https://i.pinimg.com/originals/b4/01/aa/b401aa485f015d0e62242f52f805ee3c.jpg"
+        ]
+      },
+      {
+        name: "Smartphone Pro Max",
+        price: 8500000,
+        images: [
+          "https://i.pinimg.com/originals/91/8c/ac/918cace5327a6165fd14e4886001e0a3.jpg",
+          "https://i.pinimg.com/originals/44/47/03/444703777e071669cc07a4d0e2b208a3.jpg"
+        ]
+      },
+      {
+        name: "TV LED Ultra HD",
+        price: 6000000,
+        images: [
+          "https://i.pinimg.com/originals/d4/42/f0/d442f0261699b560f484a4e303d62c8a.jpg",
+          "https://i.pinimg.com/originals/2f/6d/22/2f6d22c2927510b126091ed22ef5d884.jpg",
+        ]
+      }
+    ];
+
+    let currentProductIndex = 0;
+    let currentImageIndex = 0;
+
+    // Tampilkan waktu real-time
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById("current-time").textContent = now.toLocaleString();
+    }, 1000);
+
+    // Load awal
+    window.onload = () => {
+      showProduct(0);
+      generateProductList();
+    };
+
+    function showProduct(index) {
+      currentProductIndex = index;
+      currentImageIndex = 0;
+      updateSlideshow();
+      document.getElementById("product-name").textContent = products[index].name;
+      document.getElementById("product-price").textContent = `Rp${products[index].price.toLocaleString("id-ID")}`;
+    }
+
+    function updateSlideshow() {
+      const product = products[currentProductIndex];
+      document.getElementById("product-image").src = product.images[currentImageIndex];
+    }
+
+    function nextImage() {
+      const images = products[currentProductIndex].images;
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      updateSlideshow();
+    }
+
+    function previousImage() {
+      const images = products[currentProductIndex].images;
+      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      updateSlideshow();
+    }
+
+    function generateProductList() {
+      const list = document.getElementById("product-list");
+      list.innerHTML = "";
+      products.forEach((p, index) => {
+        const item = document.createElement("li");
+        item.className = "list-group-item product-item";
+        item.textContent = p.name;
+        item.onclick = () => showProduct(index);
+        list.appendChild(item);
+      });
+    }
+
+    function submitOrder() {
+      const buyerName = document.getElementById("buyer-name").value.trim();
+      const quantity = parseInt(document.getElementById("quantity").value);
+      const promo = document.getElementById("promo-code").value.trim().toUpperCase();
+      const product = products[currentProductIndex];
+
+      if (!buyerName || isNaN(quantity) || quantity <= 0) {
+        alert("Nama dan jumlah harus diisi dengan benar.");
+        return;
+      }
+
+      const subtotal = product.price * quantity;
+      let discount = 0;
+      if (promo === "DISKON10") { 
+        discount = subtotal * 0.1;
+      }
+      const total = subtotal - discount;
+      const orderId = `INV-${Math.floor(Math.random() * 90000 + 10000)}`;
+
+      document.getElementById("output").innerHTML = `
+        <p><strong>Order ID:</strong> ${orderId}</p>
+        <p><strong>Nama Pemesan:</strong> ${buyerName}</p>
+        <p><strong>Produk:</strong> ${product.name}</p>
+        <p><strong>Jumlah:</strong> ${quantity}</p>
+        <p><strong>Subtotal:</strong> Rp${subtotal.toLocaleString("id-ID")}</p>
+        <p><strong>Potongan:</strong> Rp${discount.toLocaleString("id-ID")}</p>
+        <p><strong>Total Akhir:</strong> Rp${total.toLocaleString("id-ID")}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
+ 
