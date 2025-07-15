@@ -7,7 +7,7 @@
 
 ## 👨‍💻 Informasi Pribadi
 
-**Nama:** [Nama Lengkap Anda]  
+**Nama:** Wardina Darmawan  
 **NIM:** [Nomor Induk Mahasiswa]  
 **Kelas:** [Kelas Anda]  
 **Mata Kuliah:** Pengembangan Web  
