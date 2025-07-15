@@ -207,9 +207,9 @@ Proyek ini merupakan bagian dari pembelajaran sistematis pengembangan web yang m
 ## 📞 Kontak
 
 Jika ada pertanyaan atau saran, silakan hubungi:
-- Email: [email@example.com]
-- LinkedIn: [linkedin-profile]
-- GitHub: [github-profile]
+- Email: wardinadrmwn@gmail.com
+- Instation: STITEK Bontang
+- NIM: 202312040
 
 ---
 
