@@ -8,11 +8,10 @@
 ## 👨‍💻 Informasi Pribadi
 
 **Nama:** Wardina Darmawan  
-**NIM:** [Nomor Induk Mahasiswa]  
-**Kelas:** [Kelas Anda]  
+**NIM:** 202312040    
 **Mata Kuliah:** Pengembangan Web  
-**Semester:** [Semester]  
-**Tahun Akademik:** [Tahun Akademik]  
+**Semester:** empat  
+**Institusi:** STITEK Bontang 
 
 ---
 
@@ -208,10 +207,10 @@ Proyek ini merupakan bagian dari pembelajaran sistematis pengembangan web yang m
 ## 📞 Kontak
 
 Jika ada pertanyaan atau saran, silakan hubungi:
-- Email: [email@example.com]
-- LinkedIn: [linkedin-profile]
-- GitHub: [github-profile]
+- Email: wardinadrmwn@gmail.com
+- Instation: STITEK Bontang
+- NIM: 202312040
 
 ---
 
-*Dibuat dengan ❤️ untuk pembelajaran web development*
+
